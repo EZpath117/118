@@ -37,7 +37,7 @@ int main(int argc, char *argv[]) {
     }
 
     timeout.tv_sec = TIMEOUT_SECS;
-    timeout.tv_usec = 0;
+    timeout.tv_usec = 200000;
     if (setsockopt(listen_sockfd, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout)) < 0) {
         perror("Error setting timeout");
         close(listen_sockfd);
@@ -82,26 +82,10 @@ int main(int argc, char *argv[]) {
         }
 
         pkt.seqnum = seq_num;
-        //seq_num = (seq_num + 1) % 2; // Alternate sequence number
-
-        // Send data packet to server
-        //(send_sockfd, &pkt, bytes_read + HEADER_SIZE, 0, (struct sockaddr *)&server_addr_to, sizeof(server_addr_to));
-
-        // Get current time
-        //gettimeofday(&start_time, NULL);
 
         while(retries < MAX_RETRIES) {
-           /*while (true) {
-                // Check for ACK or timeout
-                gettimeofday(&current_time, NULL);
-                double elapsed_time = (current_time.tv_sec - start_time.tv_sec) + (current_time.tv_usec - start_time.tv_usec) / 1000000.0;
-
-                if (elapsed_time >= TIMEOUT_SECS) {
-                    // Timeout, retransmit packet*/
+           
             sendto(send_sockfd, &pkt, bytes_read + HEADER_SIZE, 0, (struct sockaddr *)&server_addr_to, sizeof(server_addr_to));
-                    /*gettimeofday(&start_time, NULL); // Reset start time
-                    continue;
-                }*/
                 
             int recv_len = recvfrom(listen_sockfd, &ack_pkt, sizeof(ack_pkt), 0, (struct sockaddr *)&server_addr_from, &addr_size);
             if (recv_len < 0) {

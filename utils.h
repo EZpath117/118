@@ -16,7 +16,7 @@
 #define PAYLOAD_SIZE 1024
 #define MAX_SEQUENCE 1024
 #define TIMEOUT 0.1
-#define MAX_RETRIES 5
+#define MAX_RETRIES 10
 // You may add more macros below if you want to
 
 // Packet Layout

@@ -1,0 +1,8 @@
+- Goal was to implement a basic stop and wait protocol
+- I used a modulus to alternate the sequence number between 0 and 1
+- The sender sends one packet at a time and wait for an ACK before sending the next packet
+- I have a timer so that dropped packets will be retransmitted though it doens't seem to work at the moment
+- The packets are partitioned into the max payload size of 1024 bytes
+- Difficulties I have are trying to get the dropped packets to be retransmitted.
+- There is also the last segment flags to trigger the end of file
+- Challenge as of right now is to figure out where in the code is not allowing the retransmit to happen.
